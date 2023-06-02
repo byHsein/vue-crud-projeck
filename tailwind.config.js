@@ -5,7 +5,8 @@ export const darkMode = 'media';
 export const theme = {
   extends:{
     backgroundColor:{
-      'transparent':'transparent'
+      'transparent':'transparent',
+      'rose-800':'rgb(159 18 57)'
     }
   },
   accentColor: ({

@@ -1,5 +1,5 @@
 <template>
-    <div class="h-screen bg-custom">
+    <div class="h-full bg-custom bg-fixed">
         <div class="mx-auto w-xl px-5 my-0 items-center">
             <nav class="flex justify-between items-center pt-5 pb-5">
                 <div class="poppins font-bold text-blue-400 text-4xl">CMS</div>
@@ -48,39 +48,41 @@
                 </div>
             </nav>
         </div>
-        <div class="bank bg-no-repeat bg-center h-[90vh] w-full">
+        <div class="bank bg-no-repeat bg-center bg-fixed w-full">
             <div class="bg-white opacity-10 h-[70px]"></div>
             <div class="mx-auto w-xl px-5">
                 <h1
                     class="mt-[-50px] text-blue-400 opacity-100 text-xl font-bold poppins">
-                    BANK LIST
+                    PRODUCTS LIST
                 </h1>
-                <div class="flex flex-wrap item-center gap-4 mt-20">
+                <div class="flex flex-wrap item-center justify-between gap-4 mt-20">
                     <div
-                        v-for="item in banks"
-                        :key="item.id"
-                        class="w-full flex flex-col-3 text-ellipsis h-[100px] glass px-5  duration-300 rounded-lg">
-                        <tr class="text-white pt-3">
-                            <div class="flex items-center pl-1 gap-2">
-                                <h1 class="poppins z-20 font-bold text-white">
-                                    {{ item.id }}.
-                                </h1>
-                                <p class="poppins z-20 font-bold text-white text-xl">
-                                    {{ item.name }}
+                        v-for="product in products"
+                        :key="product.id"
+                        class="w-full flex flex-col-3 text-ellipsis h-full py-2 glass px-5  duration-300 rounded-lg">
+                        <tr class="text-white pt-3 flex justify-between">
+                            <div>
+                                <div class="flex items-center pl-1 gap-2">
+                                    <h1 class="poppins z-20 font-bold text-white">
+                                        {{ product.id }}.
+                                    </h1>
+                                    <p class="poppins z-20 font-bold text-white text-xl">
+                                        {{ product.title }}
+                                    </p>
+                                </div>
+                                <p class="poppins z-20 text-md ml-7 font-bold text-white">
+                                    Description:
+                                    <span class="text-slate-400">
+                                        {{ product.description }}
+                                    </span>
+                                </p>
+                                <p class="poppins z-20 text-md ml-7 font-bold text-white">
+                                    Price:
+                                    <span class="text-slate-400">
+                                        {{ product.price }}
+                                    </span>
                                 </p>
                             </div>
-                            <p class="poppins z-20 text-md ml-7 font-bold text-white">
-                                Name:
-                                <span class="text-slate-400">
-                                    {{ item.account_name }}
-                                </span>
-                            </p>
-                            <p class="poppins z-20 text-md ml-7 font-bold text-white">
-                                Number:
-                                <span class="text-slate-400">
-                                    {{ item.account_number }}
-                                </span>
-                            </p>
                         </tr>
                     </div>
                 </div>
@@ -90,28 +92,33 @@
 </template>
 
 <script>
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import axios from "axios";
 export default {
     data() {
         return {
-            banks: [],
+            products: [],
         };
     },
     mounted() {
-        axios
-            .get("https://api.sfgw.senthir.dev/api/banks")
-            .then((response) => {
-                this.banks = response.data.data;
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        this.fetchData();
     },
     methods: {
         isActive(route) {
             return this.$route.path === route;
         },
+        fetchData() {
+            axios.get("https://dummyjson.com/products")
+                .then(response => {
+                // Update the 'users' data property with the fetched data
+                this.products = response.data.products;
+            })
+                .catch(error => {
+                console.error(error);
+            });
+        }
     },
+    components: { FontAwesomeIcon }
 };
 </script>
 
@@ -158,6 +165,8 @@ export default {
 }
 .bg-custom{
     background-color:rgba(7,12,15,255);
+    height: 100%;
+    background-attachment: fixed;
 }
 .glass{
     backdrop-filter: blur(16px) saturate(180%);

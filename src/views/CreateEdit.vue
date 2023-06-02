@@ -1,5 +1,5 @@
 <template>
-    <div class="h-screen bg-custom">
+    <div class="h-full bg-custom bg-fixed">
         <div class="mx-auto w-xl px-5 my-0 ">
         </div>
         <div class="mx-auto w-xl px-5 my-0 items-center">
@@ -20,40 +20,94 @@
                 </div>
             </nav>
         </div>
-        <div class="bank bg-no-repeat bg-center h-[90vh] w-full">
+        <div class="bank bg-no-repeat bg-center bg-fixed w-full">
             <div class="bg-white opacity-10 h-[70px]"></div>
                 <div class="mx-auto px-5">
                     <div class="mx-auto w-xl  ">
                         <h1 class=" mt-[-50px] text-blue-400 opacity-100 text-xl font-bold poppins"> CREATE & EDIT</h1>
                     </div>
-                    
+                    <div class="mt-[80px] lg:mt-5 block lg:flex gap-3 items-center justify-center">
+                        <div class="relative h-11 mt-0 lg:mt-16 w-full min-w-[200px]">
+                            <input
+                            v-model="id"
+                            class="peer text-white h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal  outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-pink-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                            />
+                            <label class="text-white after:content[' '] pointer-events-none absolute left-0 -top-2.5 flex h-full w-full select-none text-md font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-2.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-pink-500 after:transition-transform after:duration-300 peer-placeholder-shown:leading-tight peer-placeholder-shown:text-blue-gray-500 peer-focus:text-sm peer-focus:leading-tight peer-focus:text-pink-500 peer-focus:after:scale-x-100 peer-focus:after:border-pink-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                            Id
+                            </label>
+                        </div>
+                        <div class="relative mt-16 h-11 w-full min-w-[200px]">
+                            <input
+                            v-model="title"
+                            class="peer text-white h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal  outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-pink-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                            />
+                            <label class="text-white after:content[' '] pointer-events-none absolute left-0 -top-2.5 flex h-full w-full select-none text-md font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-2.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-pink-500 after:transition-transform after:duration-300 peer-placeholder-shown:leading-tight peer-placeholder-shown:text-blue-gray-500 peer-focus:text-sm peer-focus:leading-tight peer-focus:text-pink-500 peer-focus:after:scale-x-100 peer-focus:after:border-pink-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                            Title
+                            </label>
+                        </div>
+                        <div class="relative mt-16 h-11 w-full min-w-[200px]">
+                            <input
+                            v-model="description"
+                            class="peer text-white h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal  outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-pink-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                            />
+                            <label class="text-white after:content[' '] pointer-events-none absolute left-0 -top-2.5 flex h-full w-full select-none text-md font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-2.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-pink-500 after:transition-transform after:duration-300 peer-placeholder-shown:leading-tight peer-placeholder-shown:text-blue-gray-500 peer-focus:text-sm peer-focus:leading-tight peer-focus:text-pink-500 peer-focus:after:scale-x-100 peer-focus:after:border-pink-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                            Description
+                            </label>
+                        </div>
+                        <div class="relative mt-16 h-11 w-full min-w-[200px]">
+                            <input
+                            v-model="price"
+                            class="peer text-white h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal  outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-pink-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                            />
+                            <label class="text-white after:content[' '] pointer-events-none absolute left-0 -top-2.5 flex h-full w-full select-none text-md font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-2.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-pink-500 after:transition-transform after:duration-300 peer-placeholder-shown:leading-tight peer-placeholder-shown:text-blue-gray-500 peer-focus:text-sm peer-focus:leading-tight peer-focus:text-pink-500 peer-focus:after:scale-x-100 peer-focus:after:border-pink-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                            Price
+                            </label>
+                        </div>
+                        <div>
+                            <button @click="createPost"  class="green-btn duration-300 mt-10 text-white font-bold py-2 px-6 rounded">
+                                Create
+                            </button>
+                        </div>
+                    </div>
                     <div class="flex flex-wrap item-center gap-4 mt-20">
-                        <div
-                            v-for="item in banks"
-                            :key="item.id"
-                            class="w-full flex flex-col-3 text-ellipsis h-[100px] glass px-5  duration-300 rounded-lg">
+                        <div 
+                            v-for="product in products"
+                            :key="product.id"
+                            class="w-full flex justify-between items-center text-ellipsis h-full py-2 glass px-5  duration-300 rounded-lg">
                             <tr class="text-white pt-3">
                                 <div class="flex items-center pl-1 gap-2">
                                     <h1 class="poppins z-20 font-bold text-white">
-                                        {{ item.id }}.
+                                        {{ product.id }}.
                                     </h1>
                                     <p class="poppins z-20 font-bold text-white text-xl">
-                                        {{ item.name }}
+                                        {{ product.title }}
                                     </p>
                                 </div>
                                 <p class="poppins z-20 text-md ml-7 font-bold text-white">
-                                    Name:
+                                    Description:
                                     <span class="text-slate-400">
-                                        {{ item.account_name }}
+                                        {{ product.description }}
                                     </span>
                                 </p>
                                 <p class="poppins z-20 text-md ml-7 font-bold text-white">
-                                    Number:
+                                    Price:
                                     <span class="text-slate-400">
-                                        {{ item.account_number }}
+                                        {{ product.price }}
                                     </span>
                                 </p>
                             </tr>
+                            <div class="flex items-center gap-4"> 
+                                <div>
+                                    <button class="green-btn duration-300 text-white font-bold py-2 px-4 rounded">
+                                        Edit
+                                    </button>
+                                </div>
+                                <div>
+                                    <button @click="deleteItem(product.id)" class="red-btn duration-300 text-white font-bold py-2 px-4 rounded">
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -62,42 +116,71 @@
 </template>
 
 <script>
-import axios from 'axios' 
+import axios from "axios";
 export default {
     data() {
         return {
-            banks: [],
+            products: [],
             id:'',
-            name:'',
-            account_name:''
+            title:'',
+            description:'',
+            price:''
         };
     },
     mounted() {
-        axios
-            .get("https://jsonplaceholder.typicode.com/posts")
-            .then((response) => {
-                this.banks = response.data.data;
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        this.fetchData();
+        this.createPost();
     },
     methods: {
         isActive(route) {
             return this.$route.path === route;
         },
-        createBank() {
-            axios.post('https://jsonplaceholder.typicode.com/posts', {
-            
-            })
+        
+        fetchData() {
+        axios.get('https://dummyjson.com/products')
             .then(response => {
-            console.log(response.data);
-            this.posts.push(response.data); // push the new post data into the posts array
+            this.products = response.data.products;
             })
             .catch(error => {
-            console.log(error);
+            console.error(error);
             });
+        },
+
+
+        createPost() {
+        axios.post('https://dummyjson.com/products/add', {
+            id: this.id,
+            title: this.title,
+            description: this.description,
+            price: this.price
+        })
+        .then(response => {
+            this.products.push(response.data);
+            console.log(response.data);
+            this.resetFormData()
+        })
+        .catch(error => {
+            console.log(error);
+        });
+        },
+
+
+        resetFormData() {
+            this.id = '';
+            this.title = '';
+            this.description = '';
+            this.price = '';
+        },
+
+
+        async deleteItem(productId) {
+        try {
+            await axios.delete(`https://dummyjson.com/products/${productId}`);
+            this.products = this.products.filter(product => product.id !== productId);
+        } catch (error) {
+            console.error(error);
         }
+        },
     },
 };
 </script>
@@ -111,6 +194,18 @@ export default {
 }
 .bg-transparent{
     background-color: transparent;
+}
+.green-btn{
+    background-color: #33b249;
+}
+.green-btn:hover{
+    background-color: #5adbb5;
+}
+.red-btn{
+    background-color: rgb(159 18 57);
+}
+.red-btn:hover{
+    background-color: rgb(190 18 60);
 }
 
 </style>
